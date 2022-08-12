@@ -15,11 +15,11 @@ public class CalcolaAssicurazione {
         Optional<Macchina> optionalMacchina = accessoCatena.getMacchina(optionalPersona);
 
         calcolaAssicurazione(optionalPersona, optionalMacchina);
-
     }
 
     private static Optional<Assicurazione> calcolaAssicurazione(Optional<Persona> optionalPersona, Optional<Macchina> optionalMacchina) {
-        return optionalPersona.flatMap(p -> optionalMacchina.map(m -> calcola(p, m)));
+        return optionalPersona
+                .flatMap(p -> optionalMacchina.map(m -> calcola(p, m)));
 
     }
 

@@ -13,7 +13,10 @@ public class AccessoCatena {
 
         Optional<Persona> optionalPersona = accessoCatena.getPersona();
 
-        String nomeAssicurazione = getNomeAssicurazione(optionalPersona);
+        String nomeAssicurazione = optionalPersona.flatMap(Persona::getMacchina)
+                .flatMap(Macchina::getAssicurazione)
+                .map(Assicurazione::getNome)
+                .orElse("Sconosciuto");
 
         System.out.println("======" + nomeAssicurazione);
     }
@@ -21,13 +24,6 @@ public class AccessoCatena {
 
     private Optional<Persona> getPersona() {
         return Optional.ofNullable(persona);
-    }
-
-    private static String getNomeAssicurazione(Optional<Persona> optionalPersona) {
-        return optionalPersona.flatMap(Persona::getMacchina)
-                .flatMap(Macchina::getAssicurazione)
-                .map(Assicurazione::getNome)
-                .orElse("Sconosciuto");
     }
 
     private void caricaDati() {
